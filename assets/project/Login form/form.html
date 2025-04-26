@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lighten Log In form</title>
+  <link rel="stylesheet" href="form.css" />
+</head>
+
+<body>
+  <!-- Sign Up -->
+  <div class="container" id="container">
+    <div class="form-container sign-up">
+      <form id="form">
+        <h1>Create Account</h1>
+        <br />
+        <span>or use your email for registeration</span><br />
+        <div class="form-control">
+          <input type="text" placeholder="Name" id="username" />
+
+          <small>Error message</small>
+        </div>
+
+        <div class="form-control">
+          <input type="email" placeholder="Email" id="email" />
+
+          <small>Error message</small>
+        </div>
+
+        <div class="form-control">
+          <input type="password" placeholder="Password" id="password" />
+
+          <small>Error message</small>
+        </div>
+
+        <div class="form-control">
+          <input type="password" placeholder="Confirm Password" id="password2" />
+
+          <small>Error message</small>
+        </div>
+        <div>
+          <button class="btn" onclick="opendialog()">Sign Up</button>
+          <button class="bt" onclick="reset()">Reset</button>
+        </div>
+
+        <div class="blurer" id="blurer"></div>
+        <span id="dialog" class="dialog-window">
+          <h2 class="dialog-text">
+            Your account are created <br />
+            <button class="btn" onclick="closedialog()">Close</button>
+          </h2>
+        </span>
+      </form>
+    </div>
+
+    <!-- Sign In -->
+    <div class="form-container sign-in">
+      <form id="form">
+        <h1>Sign In</h1>
+
+        <span>or use your email password</span><br />
+        <div class="form-control">
+          <input type="email" placeholder="Email" id="eml" />
+          <small>Error message</small>
+        </div>
+        <div class="form-control">
+          <input type="password" placeholder="Password" id="pass" />
+          <small>Error message</small>
+        </div>
+        <a href="#">Forget Your Password?</a>
+        <center><button>Sign In</button></center>
+      </form>
+    </div>
+
+    <!-- Sliding -->
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <img src="images/logo.jpg" style="mix-blend-mode: darken" alt="" />
+          <button class="hidden" id="login">Sign In</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+          <img src="images/logo.jpg" style="mix-blend-mode: darken" alt="" />
+          <button class="hidden" id="register">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  const container = document.getElementById("container");
+  const registerBtn = document.getElementById("register");
+  const loginBtn = document.getElementById("login");
+
+  registerBtn.addEventListener("click", () => {
+    container.classList.add("active");
+  });
+
+  loginBtn.addEventListener("click", () => {
+    container.classList.remove("active");
+  });
+
+  const dialo = document.getElementById("dialog");
+  const blurer = document.getElementById("blurer");
+
+  function opendialog() {
+    dialo.style.display = "flex";
+    blurer.style.display = "block";
+  }
+
+  function closedialog() {
+    dialo.style.display = "none";
+    blurer.style.display = "none";
+  }
+
+  const form = document.getElementById("form");
+  const username = document.getElementById("username");
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+  const password2 = document.getElementById("password2");
+  const eml = document.getElementById("eml");
+  const pass = document.getElementById("pass");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    checkInputs();
+  });
+
+  function checkInputs() {
+    const usernameValue = username.value.trim();
+    const emailValue = email.value.trim();
+    const passwordValue = password.value.trim();
+    const password2Value = password2.value.trim();
+    const passValue = pass.value.trim();
+    const emlValue = eml.value.trim();
+
+    //For Sign
+    if (emlValue === "") {
+      setErrorFor(eml, "Enter your Email");
+    } else if (!isEmail(emlValue)) {
+      setErrorFor(eml, "Not a valid email");
+    } else {
+      setSuccessFor(eml);
+    }
+    if (passValue === "") {
+      setErrorFor(pass, "Enter yout Password");
+    } else {
+      setSuccessFor(pass);
+    }
+
+    //For Sign Up
+    if (usernameValue === "") {
+      setErrorFor(username, "Username cannot be blank");
+    } else {
+      setSuccessFor(username);
+    }
+    if (emailValue === "") {
+      setErrorFor(email, "Email cannot be blank");
+    } else if (!isEmail(emailValue)) {
+      setErrorFor(email, "Not a valid email");
+    } else {
+      setSuccessFor(email);
+    }
+
+    if (passwordValue === "") {
+      setErrorFor(password, "Password cannot be blank");
+    } else if (passwordValue.length < 6) {
+      setErrorFor(password, "Password must be at least 6 characters.");
+    } else {
+      setSuccessFor(password);
+    }
+
+    if (password2Value === "") {
+      setErrorFor(password2, "Password cannot be blank");
+    } else if (passwordValue !== password2Value) {
+      setErrorFor(password2, "Passwords does not match");
+    } else {
+      setSuccessFor(password2);
+    }
+  }
+
+  function setErrorFor(input, message) {
+    const formControl = input.parentElement;
+    const small = formControl.querySelector("small");
+    formControl.className = "form-control error";
+    small.innerText = message;
+  }
+
+  function setSuccessFor(input) {
+    const formControl = input.parentElement;
+    formControl.className = "form-control success";
+  }
+
+  function isEmail(email) {
+    return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+      email
+    );
+  }
+  function reset() {
+    document.getElementById("form").reset();
+  }
+</script>
+
+</html>

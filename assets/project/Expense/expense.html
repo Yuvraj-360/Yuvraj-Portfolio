@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Kharcha - Expense Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Welcome Loader Styles */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .loader-container {
+            text-align: center;
+            position: relative;
+        }
+        
+        .welcome-text {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #1877f2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards 0.5s;
+            position: relative;
+        }
+        
+        .loader {
+            width: 250px;
+            height: 4px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .loader::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50px;
+            background: linear-gradient(90deg, #38bdf8, #1877f2, #166fe5);
+            animation: loading 2s infinite;
+            border-radius: 2px;
+        }
+        
+        .dots {
+            display: inline-block;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+        }
+        
+        .dot {
+            position: absolute;
+            bottom: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #1877f2;
+            animation: dotBounce 1.5s infinite;
+        }
+        
+        .dot:nth-child(1) {
+            left: 0;
+            animation-delay: 0s;
+        }
+        
+        .dot:nth-child(2) {
+            left: 7px;
+            animation-delay: 0.2s;
+        }
+        
+        .dot:nth-child(3) {
+            left: 14px;
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes loading {
+            0% {
+                left: -50px;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        @keyframes dotBounce {
+            0%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-8px);
+            }
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        
+        .fade-out {
+            animation: fadeOut 0.8s ease forwards;
+        }
+        
+        /* Original Styles */
+        .sidebar {
+            width: 160px;
+            height: 525px;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding-top: 30px;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            color: #1877f2;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+            cursor: pointer;
+            color: #333;
+            width: 61px;
+        }
+
+        .sidebar ul li:hover {
+            color: #1877f2;
+        }
+
+        .sidebar ul li.selected {
+            color: #1877f2;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 800px;
+            margin-left: 200px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .add-expense {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .remove-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .remove-btn:hover {
+            background: #e84118;
+        }
+
+        .day-entry div {
+            margin-bottom: 5px; /* Add margin between expense entries */
+        }
+
+        input, button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        input {
+            flex: 1;
+        }
+
+        button {
+            background: #1877f2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #166fe5;
+        }
+
+        .expense-list {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+        }
+
+        .month-section {
+            margin-bottom: 30px;
+        }
+
+        .month-header {
+            color: #1877f2;
+            border-bottom: 2px solid #1877f2;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .day-entry {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            border-radius: 8px;
+        }
+
+        .total {
+            font-weight: bold;
+            color: #333;
+            margin-top: 15px;
+        }
+
+        .grand-total {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #1877f2;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            text-align: center;
+        }
+
+        select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        /*<----------------- Responsive Styles ----------------->*/
+        /* For mobile*/
+        @media (max-width: 468px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 160px;
+                height: 520px;
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                padding-top: 30px;
+                position: fixed;
+                top: 20px;
+                left: 0;
+                transition: transform 0.3s ease;
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .close-btn {
+                display: block;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .container {
+                margin-left: 0;
+            }
+
+            .input-group, .in-ex {
+                flex-direction: row;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .in-ex {
+                width: 150px;
+                text-align: center;
+            }
+
+            .remove-btn {
+                width: 70px;
+                background: #ff4757;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                cursor: pointer;
+                margin-left: 10px; /* Adjusted margin */
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Loader -->
+    <div class="loader-overlay" id="loaderOverlay">
+        <div class="loader-container">
+            <div class="welcome-text">
+                Welcome To <br>
+                My Expense<span class="dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </span>
+            </div>
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <!-- Expense Tracker Section -->
+    <div class="sidebar" id="sidebar">
+        <span class="close-btn" id="closeSidebar">&times;</span>
+        <h2>Months</h2>
+        <ul id="monthList">
+            <li data-month="all">All</li>
+            <li data-month="January">January</li>
+            <li data-month="February">February</li>
+            <li data-month="March">March</li>
+            <li data-month="April">April</li>
+            <li data-month="May">May</li>
+            <li data-month="June">June</li>
+            <li data-month="July">July</li>
+            <li data-month="August">August</li>
+            <li data-month="September">September</li>
+            <li data-month="October">October</li>
+            <li data-month="November">November</li>
+            <li data-month="December">December</li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <span class="hamburger" id="openSidebar">☰</span>
+            <h1>My Expense 2025</h1>
+        </div>
+
+        <div class="add-expense">
+            <div class="input-group">
+                <input type="date" class="in-ex" id="expenseDate" required>
+                <input type="text" class="in-ex" id="itemDesc" placeholder="Item description" required autocomplete="off">
+                <input type="number" class="in-ex" id="itemAmount" placeholder="Amount" required>
+                <select id="paymentMethod" class="in-ex" required>
+                    <option value="Cash">Cash</option>
+                    <option value="Online">Online</option>
+                </select>
+                <button onclick="addExpense()">Add Expense</button>
+            </div>
+        </div>
+
+        <div class="expense-list" id="expenseList">
+            <!-- Expenses will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        // Welcome loader script
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('loaderOverlay');
+                loader.classList.add('fade-out');
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 800);
+            }, 2500);
+        });
+
+        let expenses = JSON.parse(localStorage.getItem('expenses')) || {};
+        let selectedMonth = null;
+
+        // Load expenses from local storage on page load
+        window.addEventListener('load', () => {
+            updateDisplay('all');
+        });
+
+        function addExpense() {
+            const date = new Date(document.getElementById('expenseDate').value);
+            const description = document.getElementById('itemDesc').value.trim();
+            const amount = parseFloat(document.getElementById('itemAmount').value);
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const time = new Date().toLocaleTimeString();
+
+            if (!date || !description || isNaN(amount)) {
+                alert('Please fill all fields correctly');
+                return;
+            }
+
+            const monthYear = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+            const day = date.getDate();
+
+            if (!expenses[monthYear]) {
+                expenses[monthYear] = {};
+            }
+
+            if (!expenses[monthYear][day]) {
+                expenses[monthYear][day] = [];
+            }
+
+            expenses[monthYear][day].push({ description, amount, paymentMethod, time });
+            saveToLocalStorage();
+            updateDisplay(selectedMonth ? selectedMonth.getAttribute('data-month') : 'all');
+            clearInputs();
+        }
+
+        function updateDisplay(selectedMonth = 'all') {
+            const container = document.getElementById('expenseList');
+            container.innerHTML = '';
+            let grandTotal = 0;
+
+            for (const [monthYear, days] of Object.entries(expenses)) {
+                const month = monthYear.split(' ')[0];
+                const monthTotal = Object.values(days).reduce((sum, items) => {
+                    return sum + items.reduce((daySum, item) => daySum + item.amount, 0);
+                }, 0);
+                grandTotal += monthTotal;
+            }
+
+            for (const [monthYear, days] of Object.entries(expenses)) {
+                const month = monthYear.split(' ')[0];
+                if (selectedMonth !== 'all' && selectedMonth !== month) continue;
+
+                let monthTotal = 0;
+                let monthHtml = `
+                    <div class="month-section">
+                        <h2 class="month-header">${monthYear}</h2>
+                `;
+
+                for (const [day, items] of Object.entries(days)) {
+                    let dayTotal = items.reduce((sum, item) => sum + item.amount, 0);
+                    monthTotal += dayTotal;
+
+                    monthHtml += `
+                        <div class="day-entry">
+                            <div class="date"><strong>Date ${day}:</strong></div>
+                            ${items.map((item, index) => `
+                                <div>
+                                    ${item.amount}/- ${item.description} (${item.paymentMethod})
+                                    <button class="remove-btn" onclick="removeExpense('${monthYear}', ${day}, ${index})">Remove</button>
+                                </div>
+                            `).join('')}
+                            <div class="total">Total: ${dayTotal}/-</div>
+                        </div>
+                    `;
+                }
+
+                monthHtml += `
+                    <div class="total">${monthYear} Grand Total: ${monthTotal}/-</div>
+                    </div>
+                `;
+
+                container.innerHTML += monthHtml;
+            }
+
+            container.innerHTML += `
+                <div class="grand-total">
+                    Grand Total Of 2025: ${grandTotal}/-
+                </div>
+            `;
+        }
+
+        function removeExpense(monthYear, day, index) {
+            if (expenses[monthYear] && expenses[monthYear][day]) {
+                expenses[monthYear][day].splice(index, 1); // Remove the expense at the specified index
+
+                // If no expenses are left for the day, remove the day entry
+                if (expenses[monthYear][day].length === 0) {
+                    delete expenses[monthYear][day];
+                }
+
+                // If no days are left for the month, remove the month entry
+                if (Object.keys(expenses[monthYear]).length === 0) {
+                    delete expenses[monthYear];
+                }
+
+                saveToLocalStorage();
+                updateDisplay(selectedMonth ? selectedMonth.getAttribute('data-month') : 'all');
+            }
+        }
+
+        function clearInputs() {
+            document.getElementById('expenseDate').value = '';
+            document.getElementById('itemDesc').value = '';
+            document.getElementById('itemAmount').value = '';
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+        }
+
+        function clearStorage() {
+            localStorage.removeItem('expenses');
+            expenses = {};
+            updateDisplay('all');
+            alert('Local storage cleared!');
+        }
+
+        document.getElementById('monthList').addEventListener('click', (event) => {
+            if (event.target.tagName === 'LI') {
+                const month = event.target.getAttribute('data-month');
+                if (selectedMonth) {
+                    selectedMonth.classList.remove('selected');
+                }
+                selectedMonth = event.target;
+                selectedMonth.classList.add('selected');
+                updateDisplay(month);
+            }
+        });
+
+        document.getElementById('openSidebar').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.add('active');
+        });
+
+        document.getElementById('closeSidebar').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('active');
+        });
+
+        document.addEventListener('click', (event) => {
+            const sidebar = document.getElementById('sidebar');
+            const hamburger = document.getElementById('openSidebar');
+            if (!sidebar.contains(event.target) && !hamburger.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

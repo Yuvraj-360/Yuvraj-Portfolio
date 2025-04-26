@@ -1,0 +1,561 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.main{
+    height: 3270px;
+}
+.nv{
+    position: fixed;
+    z-index: 1000;
+    background-color: white;
+    border-bottom: 1px solid rgba(204,204,204,.5);
+    height: 118px;
+    width: 100%;
+}
+
+.india{
+    position: relative;
+    left: 395px;
+    height: 20px;
+}
+.in1{
+    position: relative;
+    left: 400px;
+    bottom: 5px;
+    font-size: 12px;
+    font-family: sans-serif
+}
+.in1 a{
+    text-decoration: none;
+    color: black;
+}
+.eng{
+    position: relative;
+    left: 405px;
+    bottom: 5px;
+    font-size: 12px;
+    font-family: sans-serif
+}
+.eng a{
+    text-decoration: none;
+    color: black;
+}
+.log{
+    position: relative;
+    left: 1380px;
+    bottom: 5px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-family: sans-serif;
+    margin-right: 1070px;
+}
+.log a{
+    text-decoration: none;
+    color: black;
+}
+.ev{
+    position: relative;
+    right: 380px;
+    top: 38px;
+    height: 35px;
+}
+.join{
+    position: relative;
+    right: 1060px;
+    top: 68px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+.join a{
+    text-decoration: none;
+    color: black;
+}
+.about{
+    position: relative;
+    right: 1005px;
+    top: 68px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+.about a{
+    text-decoration: none;
+    color: black;
+}
+.main2{
+    margin-top: 0px;
+    width: 67.6%;
+    height: 2782px;
+    margin-left: 310px;
+    padding-left: 80px;
+    padding-top: 15px;
+}
+.bnr{
+    margin-top: 116px;
+    width: 59%;
+}
+.jo{
+    height: 36px;
+    position: relative;
+    bottom: 185px;
+    left: 840px;
+    /* background-color: white; */
+    border: 1px solid;
+    width: 14%;
+    cursor: pointer;
+}
+.bt{
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    padding-top: 12px;
+    background-color: white;
+    padding-left: 63px;
+    padding-right: 60px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.jo button:hover{
+    background-color: black;
+    /* transition: 200ms ease-in; */
+    transition:200ms ease-out;
+    color: white;
+}
+.why{
+    width: 94%;
+    position: relative;
+    height: 570px;
+    bottom: 25px;
+    display: flex;
+}
+.aloe{
+    position: relative;
+    bottom: 500px;
+    left: 85px;
+    color: white;
+    /* font-family: serif; */
+    transform: rotate(-10deg);
+    font-size: 60px;
+    line-height: 66px;
+}
+.para{
+    position: relative;
+    bottom: 390px;
+    font-weight: 540;
+    line-height: 25px;
+    text-align: center;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: white;
+}
+.life{
+    padding-left: 30px;
+}
+.aloe2{
+    position: relative;
+    bottom: 530px;
+    left: 130px;
+    color: black;
+    /* font-family: serif; */
+    transform: rotate(-10deg);
+    font-size: 60px;
+    line-height: 66px;
+}
+.para2{
+    position: relative;
+    bottom: 230px;
+    font-weight: 500;
+    line-height: 25px;
+    /* left: 85px; */
+    text-align: center;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: black;
+}
+.bt1{
+    height: 32px;
+    position: relative;
+    bottom: 315px;
+    left: 180px;
+    background-color: white;
+    border: none;
+    width: 31%;
+    cursor: pointer;
+}
+.but1{
+    letter-spacing: 1px;
+    border: none;
+    width: 100%;
+    font-weight: 800;
+    padding-top: 10px;
+    background-color: white;
+    color: black;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.bt1 button:hover{
+    background-color: black;
+    transition: 400ms ease;
+    color: white;
+}
+.bt2{
+    height: 32px;
+    position: relative;
+    bottom: 353px;
+    left: 180px;
+    background-color: white;
+    border: none;
+    width: 31%;
+    cursor: pointer;
+}
+.but2{
+    letter-spacing: 1px;
+    border: none;
+    width: 100%;
+    font-weight: 700;
+    padding-top: 10px;
+    background-color: white;
+    color: black;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.bt2 button:hover{
+    background-color: black;
+    transition: 400ms ease;
+    color: white;
+}
+.three-block{
+    display: flex;
+    width: 93%;
+}
+.global{
+    position: relative;
+    color: white;
+    bottom: 380px;
+    left: 75px;
+    /* font-family: serif; */
+    transform: rotate(-10deg);
+    font-size: 40px;
+    line-height: 66px;
+}
+.ig{
+    padding-left: 30px;
+}
+.bt3{
+    height: 39px;
+    position: relative;
+    bottom: 157px;
+    left: 90px;
+    background-color: white;
+    border: none;
+    width: 45%;
+    cursor: pointer;
+}
+.but3{
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    width: 100%;
+    font-weight: 800;
+    padding-top: 10px;
+    background-color: white;
+    color: black;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.bt3 button:hover{
+    background-color: black;
+    color: white;
+    transition: 400ms ease;
+}
+.eagle{
+    position: relative;
+    color: white;
+    bottom: 400px;
+    text-align: center;
+    /* font-family: serif; */
+    transform: rotate(-10deg);
+     font-size: 40px;
+    line-height: 66px;
+}
+.bt4{
+    height: 39px;
+    position: relative;
+    bottom: 225px;
+    left: 90px;
+    background-color: white;
+    border: none;
+    width: 45%;
+    cursor: pointer;
+}
+.but4{
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    width: 100%;
+    font-weight: 800;
+    padding-top: 10px;
+    background-color: white;
+    color: black;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.bt4 button:hover{
+    background-color: black;
+    transition: 400ms ease;
+    color: white;
+}
+.ig1{
+    padding-left: 30px;
+}
+.retreat{
+    position: relative;
+    color: white;
+    bottom: 400px;
+    text-align: center;
+    /* font-family: serif; */
+    transform: rotate(-10deg);
+     font-size: 40px;
+    line-height: 66px;
+}
+.bt5{
+    height: 39px;
+    position: relative;
+    bottom: 160px;
+    left: 90px;
+    background-color: white;
+    border: none;
+    width: 45%;
+    cursor: pointer;
+}
+.but5{
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    width: 100%;
+    font-weight: 800;
+    padding-top: 10px;
+    background-color: white;
+    color: black;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.bt5 button:hover{
+    background-color: black;
+    transition: 400ms ease;
+    color: white;
+}
+.device{
+    height: 1180px;
+    width: 93%;
+    position: relative;
+    bottom: 135px;
+}
+.right{
+    height: 150px;
+    float: right;
+    width: 53%;
+}
+.the{
+    position: relative;
+    color: black;
+    bottom: 520px;
+    text-align: center;
+    /* font-family: serif; */
+    transform: rotate(-10deg);
+     font-size: 25px;
+    line-height: 66px;
+}
+.pa{
+    position: relative;
+    bottom: 450px;
+    right: 40px;
+    left: 20px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 300;
+    font-family: sans-serif;
+    letter-spacing: .8px;
+    line-height: 1.35rem;
+}
+.bt6{
+    height: 40px;
+    position: relative;
+    bottom: 360px;
+    left: 230px;
+    background-color: white;
+    border: none;
+    width: 27%;
+    cursor: pointer;
+}
+.but6{
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    width: 100%;
+    font-weight: 800;
+    padding-top: 10px;
+    background-color: black;
+    color: white;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.bt6 button:hover{
+    background-color: gray;
+    transition: 400ms ease;
+}
+.the1{
+    position: relative;
+    color: black;
+    bottom: 60px;
+    text-align: center;
+    transform: rotate(-10deg);
+     font-size: 25px;
+    line-height: 66px;
+}
+.pa1{
+    position: relative;
+    top: 60px;
+    right: 40px;
+    left: 20px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 300;
+    font-family: sans-serif;
+    letter-spacing: .8px;
+    line-height: 1.35rem;
+}
+.rigt{
+    float: right;
+    position: relative;
+    bottom: 155px;
+}
+.bt7{
+    height: 40px;
+    position: relative;
+    top: 160px;
+    left: 180px;
+    background-color: white;
+    border: none;
+    width: 17%;
+    cursor: pointer;
+}
+.but7{
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    width: 100%;
+    font-weight: 800;
+    padding-top: 10px;
+    background-color: black;
+    color: white;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.bt7 button:hover{
+    background-color: gray;
+    transition: 400ms ease;
+}
+.main3{
+    margin-top: 123px;
+    height: 365px;
+    /* border: 1px solid; */
+    background-color: #FFC600 !important;
+}
+.foot{
+    height: 305px;
+    margin-top: 30px;
+}
+.row{
+    /* border: 1px solid; */
+    height: 100px;
+    width: 59%;
+    margin-left: 350px;
+}
+.fo{
+    font-weight: 800;
+}
+.rit{
+    width: 25%;
+    float: left;
+    padding-top: 20px;
+}
+.some{
+    width: 52%;
+    float: left;
+}
+.sn{
+    font-size: 12px;
+    font-family: sans-serif;
+    font-weight: 500;
+    color: #000 !important;
+    letter-spacing: 1px;
+}
+.sm{
+    font-size: 14px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+}
+.sm a{
+    text-decoration: none;
+    color: #000;
+}
+.sm a:hover{
+    text-decoration: underline;
+}
+.igh{
+    position: relative;
+    top: 50px;
+    float: left;
+}
+.igh a{
+    text-decoration: none;
+    color: #000;
+}
+.igh a:hover{
+    text-decoration: underline;
+}
+.dsa{
+    font-size: 16px;
+    font-family: sans-serif;
+    position: relative;
+    bottom: 12px;
+}
+.lft{
+    height: 190px;
+    left: 710px;
+    width: 65%;
+    line-height: 18px;
+    position: relative;
+    bottom: 210px;
+    display: flex;
+}
+.an{
+    height: 110px;
+    width: 50%;
+    
+}
+.er{
+    font-size: 12px;
+    color: black;
+    font-weight: 700;
+    font-family: sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+}
+.an a{
+    text-decoration: none;
+}
+.rt{
+    height: 200px;
+    width: 50%;
+}
+.an a:hover{
+    text-decoration: underline;
+}
